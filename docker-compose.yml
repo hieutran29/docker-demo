@@ -3,6 +3,10 @@ networks:
   mynetwork:
     name: "my_network"
     driver: bridge
+volumes:
+  myvolume:
+    name: "my_volume"
+
 services:
   mynginx:
     build:
@@ -22,7 +26,21 @@ services:
       dockerfile: Dockerfile-nodejs
     image: mynodejs:latest
     container_name: mynodejs
+    depends_on:
+      - mysql
     ports:
       - "8080:3000"
     networks:
       - mynetwork
+  mysql:
+    image: mysql:latest
+    container_name: "mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ALLOW_EMPTY_PASSWORD=false
+    networks:
+      - mynetwork
+    volumes:
+      - myvolume:/var/lib/mysql
