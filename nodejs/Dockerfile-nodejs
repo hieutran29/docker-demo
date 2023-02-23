@@ -1,0 +1,12 @@
+FROM node:10.16.0-alpine
+
+RUN ["mkdir", "/home/node/app"]
+
+WORKDIR /home/node/app
+
+COPY package.json ./
+RUN ["npm", "install"]
+
+COPY *.js ./
+
+CMD ["npm", "run", "start"]

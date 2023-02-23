@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mynginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile-nginx
+      args:
+        filename: ./index.html
+    image: mynginx:latest
+    container_name: mynginx
+    ports:
+      - "80:80"
+  mynodejs:
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile-nodejs
+    image: mynodejs:latest
+    container_name: mynodejs
+    ports:
+      - "8080:3000"

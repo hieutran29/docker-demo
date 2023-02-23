@@ -1,0 +1,9 @@
+FROM ubuntu:20.04
+ARG filename
+
+RUN ["/bin/sh", "-c", "apt update -y"]
+RUN ["/bin/sh", "-c", "apt install -y nginx"]
+
+COPY ${filename} /var/www/html/index.nginx-debian.html
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
